@@ -6,6 +6,7 @@ import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.lab6.databinding.ActivityFourthTaskBinding
 
@@ -31,10 +32,17 @@ class FourthTaskActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.canUpdateCoinsLD.observe(this) {
             if(it) {
-                adapter.coinsList = viewModel.coinInfo.coinsList
+                adapter.coinsList = viewModel.coinInfo!!.coinsList
                 binding.progressBar.visibility = View.GONE
             } else {
 
+            }
+        }
+        viewModel.hasInternetConnection.observe(this) {
+            if(it) {
+
+            } else {
+                Toast.makeText(this, "Отсутствует интернет соединение!", Toast.LENGTH_SHORT).show()
             }
         }
     }
